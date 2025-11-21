@@ -95,11 +95,11 @@ fun TextNoteCanvasScreen(
 ) {
     val uiState by canvasScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    var titleState by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+    var titleState by remember {
         mutableStateOf(TextFieldValue(uiState.note.title))
     }
 
-    var bodyState by rememberSaveable(stateSaver = TextFieldValue.Saver) {
+    var bodyState by remember {
         mutableStateOf(TextFieldValue(uiState.note.text ?: ""))
     }
 
@@ -125,12 +125,10 @@ fun TextNoteCanvasScreen(
         titleState = titleState,
         onTitleChange = {
             titleState = it
-            canvasScreenViewModel.updateNoteTitle(it.text)
         },
         bodyState = bodyState,
         onBodyChange = {
             bodyState = it
-            canvasScreenViewModel.updateNoteText(it.text)
         },
         onExit = onExit,
         imagePickerLauncher = imagePickerLauncher,

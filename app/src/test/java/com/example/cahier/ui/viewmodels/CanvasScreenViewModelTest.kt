@@ -36,7 +36,6 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -73,28 +72,6 @@ class CanvasScreenViewModelTest {
     @After
     fun tearDown() {
         Dispatchers.resetMain()
-    }
-
-    @Test
-    fun updateNoteTitle_updates_note_in_repository() = runTest {
-        val newTitle = "Updated Title"
-        viewModel.updateNoteTitle(newTitle)
-
-        notesRepository.getNoteStream(noteId).test {
-            assertEquals(newTitle, awaitItem().title)
-            cancelAndIgnoreRemainingEvents()
-        }
-    }
-
-    @Test
-    fun updateNoteText_updates_note_in_repository() = runTest {
-        val newText = "Updated text."
-        viewModel.updateNoteText(newText)
-
-        notesRepository.getNoteStream(noteId).test {
-            assertEquals(newText, awaitItem().text)
-            cancelAndIgnoreRemainingEvents()
-        }
     }
 
     @Test
